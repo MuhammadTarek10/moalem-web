@@ -17,6 +17,7 @@ export function SignUpPage() {
       email: "",
       password: "",
       confirmPassword: "",
+      whatsapp_number: "",
     },
   });
 

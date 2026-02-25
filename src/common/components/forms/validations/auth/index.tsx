@@ -30,7 +30,6 @@ export const signUpSchema = z
       .regex(passwordRegex, {
         message: passwordMessage,
       }),
-
     confirmPassword: z
       .string()
       .min(8, {
@@ -42,6 +41,15 @@ export const signUpSchema = z
       .regex(passwordRegex, {
         message: confirmPasswordMessage,
       }),
+    whatsapp_number: z
+      .string()
+      .min(1, { message: "WhatsApp number is required" })
+      .max(20, { message: "WhatsApp number must be less than 20 characters" }),
+    governorate: z.string().optional(),
+    education_administration: z.string().optional(),
+    subjects: z.array(z.string()).optional(),
+    schools: z.array(z.string()).optional(),
+    grades: z.array(z.string()).optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",

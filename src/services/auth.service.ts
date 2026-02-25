@@ -1,6 +1,11 @@
 import { ApiService } from "./api.service";
 import { APIS } from "@/common/api";
-import type { ApiResponse, TokenResponse } from "./types";
+import type {
+  ApiResponse,
+  SignInRequest,
+  SignUpRequest,
+  TokenResponse,
+} from "./types";
 
 export class AuthService {
   private static instance: AuthService;
@@ -18,28 +23,22 @@ export class AuthService {
   }
 
   public async signIn(
-    email: string,
-    password: string
+    body: SignInRequest
   ): Promise<ApiResponse<TokenResponse>> {
     const response = await this.apiService.post<TokenResponse>(
       APIS.AUTH.SIGN_IN,
-      {
-        email,
-        password,
-      }
+      body
     );
 
     return response;
   }
 
   public async signUp(
-    name: string,
-    email: string,
-    password: string
+    body: SignUpRequest
   ): Promise<ApiResponse<TokenResponse>> {
     const response = await this.apiService.post<TokenResponse>(
       APIS.AUTH.SIGN_UP,
-      { name, email, password }
+      body
     );
 
     return response;

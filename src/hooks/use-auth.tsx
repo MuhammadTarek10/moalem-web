@@ -2,7 +2,7 @@ import type {
   SignInSchema,
   SignUpSchema,
 } from "@/common/components/forms/validations/auth";
-import type { User } from "@/common/models";
+import { userResponseToUser, type User } from "@/common/models";
 import { authService } from "@/services/auth.service";
 import { userService } from "@/services/user.service";
 import {
@@ -85,7 +85,7 @@ export function AuthProvider({ children }: Props) {
   const initializeAuth = async () => {
     try {
       const response = await userService.getProfile();
-      setUser(response.data);
+      setUser(userResponseToUser(response.data));
     } catch (error) {
       setUser(null);
     } finally {
@@ -95,11 +95,11 @@ export function AuthProvider({ children }: Props) {
 
   const signIn = async (data: SignInSchema) => {
     try {
-      const authResponse = await authService.signIn(data.email, data.password);
+      const authResponse = await authService.signIn(data);
       toast.success(authResponse?.message || "Sign in successful");
 
       const profileResponse = await userService.getProfile();
-      setUser(profileResponse.data);
+      setUser(userResponseToUser(profileResponse.data));
 
       if (authResponse.data.expires_in) {
         scheduleTokenRefresh(authResponse.data.expires_in);
@@ -114,15 +114,11 @@ export function AuthProvider({ children }: Props) {
 
   const signUp = async (data: SignUpSchema) => {
     try {
-      const authResponse = await authService.signUp(
-        data.name,
-        data.email,
-        data.password
-      );
+      const authResponse = await authService.signUp(data);
       toast.success(authResponse?.message || "Sign up successful");
 
       const profileResponse = await userService.getProfile();
-      setUser(profileResponse.data);
+      setUser(userResponseToUser(profileResponse.data));
 
       if (authResponse.data.expires_in) {
         scheduleTokenRefresh(authResponse.data.expires_in);

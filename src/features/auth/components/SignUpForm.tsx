@@ -32,6 +32,14 @@ export function SignUpForm({ form, onSubmit }: Props) {
           />
           <CustomFormField
             control={form.control}
+            name="whatsapp_number"
+            label="WhatsApp Number"
+            placeholder="+201234567890"
+            type="input"
+            inputType="tel"
+          />
+          <CustomFormField
+            control={form.control}
             name="password"
             label="Password"
             placeholder="Enter your password"

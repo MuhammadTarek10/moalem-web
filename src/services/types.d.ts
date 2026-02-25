@@ -1,11 +1,26 @@
-export class ApiResponse<T> {
-  data: T;
-  message: string;
-  error: string;
-}
-
-export interface TokenResponse {
-  access_token: string;
-  refresh_token: string;
-  expires_in: number;
-}
+/**
+ * Re-export API types. Prefer importing from @/types for new code.
+ */
+export type {
+  ApiResponse,
+  ApiStatus,
+  TokenResponse,
+  SignUpRequest,
+  SignInRequest,
+  UserResponse,
+  CreateCouponRequest,
+  RedeemCouponRequest,
+  RevokeCouponRequest,
+  ReissueCouponRequest,
+  CouponResponse,
+  CreateCouponResponse,
+  RedeemCouponResponse,
+  CouponAdminUser,
+  CouponAdminItem,
+  PaginatedAdminCouponsResponse,
+  CouponsStatsResponse,
+  ReissueCouponResponse,
+  DeleteCouponResponse,
+  CouponStatusFilter,
+  ListCouponsQueryParams,
+} from "@/types/api.types";
