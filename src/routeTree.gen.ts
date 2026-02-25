@@ -13,7 +13,10 @@ import { Route as SplatRouteImport } from './routes/$'
 import { Route as mainRouteRouteImport } from './routes/(main)/route'
 import { Route as authRouteRouteImport } from './routes/(auth)/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as mainUsersRouteRouteImport } from './routes/(main)/users/route'
 import { Route as mainProfileRouteRouteImport } from './routes/(main)/profile/route'
+import { Route as mainDashboardRouteRouteImport } from './routes/(main)/dashboard/route'
+import { Route as mainCouponsRouteRouteImport } from './routes/(main)/coupons/route'
 import { Route as authSignUpRouteRouteImport } from './routes/(auth)/sign-up/route'
 import { Route as authSignInRouteRouteImport } from './routes/(auth)/sign-in/route'
 
@@ -35,9 +38,24 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const mainUsersRouteRoute = mainUsersRouteRouteImport.update({
+  id: '/users',
+  path: '/users',
+  getParentRoute: () => mainRouteRoute,
+} as any)
 const mainProfileRouteRoute = mainProfileRouteRouteImport.update({
   id: '/profile',
   path: '/profile',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainDashboardRouteRoute = mainDashboardRouteRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainCouponsRouteRoute = mainCouponsRouteRouteImport.update({
+  id: '/coupons',
+  path: '/coupons',
   getParentRoute: () => mainRouteRoute,
 } as any)
 const authSignUpRouteRoute = authSignUpRouteRouteImport.update({
@@ -56,14 +74,20 @@ export interface FileRoutesByFullPath {
   '/$': typeof SplatRoute
   '/sign-in': typeof authSignInRouteRoute
   '/sign-up': typeof authSignUpRouteRoute
+  '/coupons': typeof mainCouponsRouteRoute
+  '/dashboard': typeof mainDashboardRouteRoute
   '/profile': typeof mainProfileRouteRoute
+  '/users': typeof mainUsersRouteRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/$': typeof SplatRoute
   '/sign-in': typeof authSignInRouteRoute
   '/sign-up': typeof authSignUpRouteRoute
+  '/coupons': typeof mainCouponsRouteRoute
+  '/dashboard': typeof mainDashboardRouteRoute
   '/profile': typeof mainProfileRouteRoute
+  '/users': typeof mainUsersRouteRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -73,13 +97,32 @@ export interface FileRoutesById {
   '/$': typeof SplatRoute
   '/(auth)/sign-in': typeof authSignInRouteRoute
   '/(auth)/sign-up': typeof authSignUpRouteRoute
+  '/(main)/coupons': typeof mainCouponsRouteRoute
+  '/(main)/dashboard': typeof mainDashboardRouteRoute
   '/(main)/profile': typeof mainProfileRouteRoute
+  '/(main)/users': typeof mainUsersRouteRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/$' | '/sign-in' | '/sign-up' | '/profile'
+  fullPaths:
+    | '/'
+    | '/$'
+    | '/sign-in'
+    | '/sign-up'
+    | '/coupons'
+    | '/dashboard'
+    | '/profile'
+    | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/$' | '/sign-in' | '/sign-up' | '/profile'
+  to:
+    | '/'
+    | '/$'
+    | '/sign-in'
+    | '/sign-up'
+    | '/coupons'
+    | '/dashboard'
+    | '/profile'
+    | '/users'
   id:
     | '__root__'
     | '/'
@@ -88,7 +131,10 @@ export interface FileRouteTypes {
     | '/$'
     | '/(auth)/sign-in'
     | '/(auth)/sign-up'
+    | '/(main)/coupons'
+    | '/(main)/dashboard'
     | '/(main)/profile'
+    | '/(main)/users'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -128,11 +174,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(main)/users': {
+      id: '/(main)/users'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof mainUsersRouteRouteImport
+      parentRoute: typeof mainRouteRoute
+    }
     '/(main)/profile': {
       id: '/(main)/profile'
       path: '/profile'
       fullPath: '/profile'
       preLoaderRoute: typeof mainProfileRouteRouteImport
+      parentRoute: typeof mainRouteRoute
+    }
+    '/(main)/dashboard': {
+      id: '/(main)/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof mainDashboardRouteRouteImport
+      parentRoute: typeof mainRouteRoute
+    }
+    '/(main)/coupons': {
+      id: '/(main)/coupons'
+      path: '/coupons'
+      fullPath: '/coupons'
+      preLoaderRoute: typeof mainCouponsRouteRouteImport
       parentRoute: typeof mainRouteRoute
     }
     '/(auth)/sign-up': {
@@ -167,11 +234,17 @@ const authRouteRouteWithChildren = authRouteRoute._addFileChildren(
 )
 
 interface mainRouteRouteChildren {
+  mainCouponsRouteRoute: typeof mainCouponsRouteRoute
+  mainDashboardRouteRoute: typeof mainDashboardRouteRoute
   mainProfileRouteRoute: typeof mainProfileRouteRoute
+  mainUsersRouteRoute: typeof mainUsersRouteRoute
 }
 
 const mainRouteRouteChildren: mainRouteRouteChildren = {
+  mainCouponsRouteRoute: mainCouponsRouteRoute,
+  mainDashboardRouteRoute: mainDashboardRouteRoute,
   mainProfileRouteRoute: mainProfileRouteRoute,
+  mainUsersRouteRoute: mainUsersRouteRoute,
 }
 
 const mainRouteRouteWithChildren = mainRouteRoute._addFileChildren(

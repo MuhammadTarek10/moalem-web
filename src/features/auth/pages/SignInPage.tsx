@@ -25,7 +25,7 @@ export function SignInPage() {
     try {
       await signIn(data);
       queueMicrotask(() => {
-        navigate({ to: "/profile" });
+        navigate({ to: "/dashboard" });
       });
     } catch (error) {
       const errorMessage =

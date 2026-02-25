@@ -140,6 +140,17 @@ export class ApiService {
     }
   }
 
+  public async getBlob(
+    url: string,
+    queryParams?: Record<string, string>
+  ): Promise<Blob> {
+    const response = await this.client.get(this.resolveUrl(url), {
+      params: queryParams,
+      responseType: "blob",
+    });
+    return response.data as Blob;
+  }
+
   public async post<T>(url: string, data?: unknown): Promise<ApiResponse<T>> {
     try {
       const response = await this.client.post<T>(this.resolveUrl(url), data);

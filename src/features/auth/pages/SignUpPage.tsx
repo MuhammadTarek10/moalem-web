@@ -27,7 +27,7 @@ export function SignUpPage() {
   const onSubmit = async (data: SignUpSchema) => {
     try {
       await signUp(data);
-      navigate({ to: "/sign-in" });
+      navigate({ to: "/dashboard" });
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "An error occurred";
